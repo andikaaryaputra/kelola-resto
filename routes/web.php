@@ -18,7 +18,7 @@ use App\Http\Controllers\TransaksiController;
 // HALAMAN AWAL
 // ======================================
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 // ======================================
@@ -82,8 +82,8 @@ Route::middleware(['auth'])->prefix('kasir')->name('kasir.')->group(function () 
 // ======================================
 // OWNER - Dashboard & Laporan
 // ======================================
-Route::middleware(['auth'])->prefix('owner')->name('owner.')->group(function () {
-    Route::get('/', [OwnerController::class, 'index'])->name('dashboard');
-    Route::get('/laporan', [OwnerController::class, 'laporan'])->name('laporan');
-    Route::get('/laporan/print', [OwnerController::class, 'laporanPrint'])->name('laporan.print');
+Route::middleware(['auth', 'role:owner'])->group(function () {
+    Route::get('/owner/dashboard', [OwnerController::class, 'index'])->name('owner.dashboard');
+    Route::get('/owner/laporan', [OwnerController::class, 'laporan'])->name('owner.laporan');
+    Route::get('/owner/laporan/print', [OwnerController::class, 'laporanPrint'])->name('owner.laporan.print');
 });
