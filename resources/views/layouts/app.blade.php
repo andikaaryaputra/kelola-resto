@@ -5,196 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Restaurant Cashier')</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <style>
-        .sidebar-transition {
-            transition: all 0.3s ease-in-out;
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        #menu-list::-webkit-scrollbar {
-        width: 6px;
-       }
-
-        #menu-list::-webkit-scrollbar-thumb {
-            background-color: #d1d5db;
-            border-radius: 4px;
-        }`
-    </style>
 </head>
-<body class="bg-gray-50" x-data="{ sidebarOpen: false }">
+
+<body class="bg-gray-100" x-data="{ sidebarOpen: false }">
     <div class="flex h-screen">
+
         <!-- Sidebar -->
-        <div class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg sidebar-transition" 
-             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0">
-            
+        <div class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r sidebar-transition"
+             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'">
+
             <!-- Logo -->
-            <div class="flex items-center justify-center h-16 px-4 bg-gradient-to-r from-blue-600 to-purple-600">
-                <div class="flex items-center">
-                    <i class="fas fa-utensils text-white text-2xl mr-3"></i>
-                    <span class="text-white text-xl font-bold">Restaurant</span>
-                </div>
+            <div class="flex items-center justify-center h-16 border-b">
+                <span class="text-black text-xl font-bold">Restaurant</span>
             </div>
 
             <!-- User Info -->
-            <div class="p-4 border-b border-gray-200">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                        <i class="fas fa-user text-white"></i>
-                    </div>
-                    <div class="ml-3">
-                        <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name ?? 'User' }}</p>
-                        <p class="text-xs text-gray-500 capitalize">{{ Auth::user()->role ?? 'Role' }}</p>
-                    </div>
-                </div>
+            <div class="p-4 border-b">
+                <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name ?? 'User' }}</p>
+                <p class="text-xs text-gray-500 capitalize">{{ Auth::user()->role ?? 'Role' }}</p>
             </div>
 
             <!-- Navigation -->
             <nav class="mt-5 px-2">
+
                 @if(Auth::user()->role === 'administrator')
-                    <a href="{{ route('admin.dashboard') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-tachometer-alt mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('admin.dashboard') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Dashboard
                     </a>
-                    <a href="{{ route('admin.meja.index') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-chair mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('admin.meja.index') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Kelola Meja
                     </a>
-                    <a href="{{ route('admin.menu.index') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-utensils mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('admin.menu.index') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Kelola Menu
                     </a>
-                    <a href="{{ route('admin.users.index') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-users mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('admin.users.index') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Kelola Users
                     </a>
+
                 @elseif(Auth::user()->role === 'waiter')
-                    <a href="{{ route('waiter.dashboard') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-tachometer-alt mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('waiter.dashboard') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Dashboard
                     </a>
-                    <a href="{{ route('waiter.pesanan.index') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-clipboard-list mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('waiter.pesanan.index') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Kelola Pesanan
                     </a>
-                    <a href="{{ route('waiter.laporan') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-chart-bar mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('waiter.laporan') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Laporan
                     </a>
+
                 @elseif(Auth::user()->role === 'kasir')
-                    <a href="{{ route('kasir.dashboard') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-tachometer-alt mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('kasir.dashboard') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Dashboard
                     </a>
-                    <a href="{{ route('kasir.transaksi.index') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-cash-register mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('kasir.transaksi.index') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Kelola Transaksi
                     </a>
-                    <a href="{{ route('kasir.siap-bayar') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-credit-card mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('kasir.siap-bayar') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Pesanan Siap Bayar
                     </a>
-                    <a href="{{ route('kasir.hari-ini') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-chart-bar mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('kasir.hari-ini') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Laporan
                     </a>
+
                 @elseif(Auth::user()->role === 'owner')
-                    <a href="{{ route('owner.dashboard') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-tachometer-alt mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('owner.dashboard') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Dashboard
                     </a>
-                    <a href="{{ route('owner.laporan') }}" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-                        <i class="fas fa-chart-bar mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                    <a href="{{ route('owner.laporan') }}" class="block px-2 py-2 text-sm rounded-md text-black hover:bg-gray-200">
                         Laporan
                     </a>
                 @endif
+
             </nav>
 
             <!-- Logout -->
             <div class="absolute bottom-0 w-full p-4">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="w-full flex items-center px-2 py-2 text-sm font-medium rounded-md text-red-600 hover:bg-red-50 hover:text-red-900">
-                        <i class="fas fa-sign-out-alt mr-3"></i>
+                    <button type="submit" class="w-full px-2 py-2 text-sm rounded-md text-red-600 hover:bg-red-200">
                         Logout
                     </button>
                 </form>
             </div>
+
         </div>
 
         <!-- Main Content -->
         <div class="flex-1 flex flex-col lg:ml-64">
+
             <!-- Top Bar -->
-            <header class="bg-white shadow-sm border-b border-gray-200">
+            <header class="bg-white border-b">
                 <div class="flex items-center justify-between px-4 py-4">
-                    <div class="flex items-center">
-                        <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
-                            <i class="fas fa-bars text-xl"></i>
-                        </button>
-                        <h1 class="ml-2 text-2xl font-semibold text-gray-900">@yield('page-title', 'Dashboard')</h1>
-                    </div>
-                    
-                    <div class="flex items-center space-x-4">
-                        <div class="text-sm text-gray-500">
-                            <i class="fas fa-clock mr-1"></i>
-                            <span id="current-time"></span>
-                        </div>
-                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-user text-white text-sm"></i>
-                        </div>
-                    </div>
+                    <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-200">
+                        Menu
+                    </button>
+
+                    <h1 class="text-2xl font-semibold text-gray-900">@yield('page-title', 'Dashboard')</h1>
                 </div>
             </header>
 
             <!-- Page Content -->
-            <main class="flex-1 overflow-y-auto bg-gray-50">
+            <main class="flex-1 overflow-y-auto bg-gray-100">
                 <div class="p-6">
                     @yield('content')
                 </div>
             </main>
+
         </div>
     </div>
 
-    <!-- Mobile Sidebar Overlay -->
-    <div x-show="sidebarOpen" 
-         x-transition:enter="transition-opacity ease-linear duration-300"
-         x-transition:enter-start="opacity-0"
-         x-transition:enter-end="opacity-100"
-         x-transition:leave="transition-opacity ease-linear duration-300"
-         x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0"
-         class="fixed inset-0 z-40 bg-gray-600 bg-opacity-75 lg:hidden"
+    <!-- Mobile Overlay -->
+    <div x-show="sidebarOpen"
+         class="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"
          @click="sidebarOpen = false">
     </div>
 
-    <script>
-        // Update time every second
-        function updateTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('id-ID', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            document.getElementById('current-time').textContent = timeString;
-        }
-        
-        setInterval(updateTime, 1000);
-        updateTime();
-    </script>
 </body>
 </html>

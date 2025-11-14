@@ -4,53 +4,49 @@
 @section('page-title', 'Tambah User')
 
 @section('content')
-<div class="max-w-2xl mx-auto">
-    <div class="bg-white rounded-xl shadow-lg p-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Tambah User Baru</h2>
+<div class="max-w-xl mx-auto">
+    <div class="bg-white p-6 shadow rounded-lg">
 
-        <form action="{{ route('admin.users.store') }}" method="POST" class="space-y-6">
+        <h2 class="text-xl font-semibold mb-4">Tambah User Baru</h2>
+
+        <form action="{{ route('admin.users.store') }}" method="POST">
             @csrf
 
-            <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama</label>
-                <input type="text" id="name" name="name" value="{{ old('name') }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                @error('name') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+            <div class="mb-4">
+                <label class="block mb-1">Nama</label>
+                <input type="text" name="name" value="{{ old('name') }}" class="w-full border p-2 rounded">
             </div>
 
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                @error('email') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+            <div class="mb-4">
+                <label class="block mb-1">Email</label>
+                <input type="email" name="email" value="{{ old('email') }}" class="w-full border p-2 rounded">
             </div>
 
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                <input type="password" id="password" name="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                @error('password') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+            <div class="mb-4">
+                <label class="block mb-1">Password</label>
+                <input type="password" name="password" class="w-full border p-2 rounded">
             </div>
 
-            <div>
-                <label for="role" class="block text-sm font-medium text-gray-700 mb-2">Role</label>
-                <select id="role" name="role" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+            <div class="mb-4">
+                <label class="block mb-1">Role</label>
+                <select name="role" class="w-full border p-2 rounded">
                     <option value="administrator">Administrator</option>
                     <option value="waiter">Waiter</option>
                     <option value="kasir">Kasir</option>
                     <option value="owner">Owner</option>
                 </select>
-                @error('role') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
             </div>
 
-            <div class="flex space-x-4">
-                <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
-                    <i class="fas fa-save mr-2"></i>Simpan User
+            <div class="flex gap-3">
+                <button class="bg-blue-600 text-white px-4 py-2 rounded">
+                    Simpan
                 </button>
-                <a href="{{ route('admin.users.index') }}" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors text-center">
-                    <i class="fas fa-arrow-left mr-2"></i>Kembali
+                <a href="{{ route('admin.users.index') }}" class="bg-gray-300 px-4 py-2 rounded">
+                    Kembali
                 </a>
             </div>
         </form>
+
     </div>
-    </div>
+</div>
 @endsection
-
-

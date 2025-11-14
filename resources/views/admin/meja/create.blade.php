@@ -4,58 +4,44 @@
 @section('page-title', 'Tambah Meja')
 
 @section('content')
-<div class="max-w-2xl mx-auto">
-    <div class="bg-white rounded-xl shadow-lg p-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Tambah Meja Baru</h2>
-        
-        <form action="{{ route('admin.meja.store') }}" method="POST" class="space-y-6">
-            @csrf
-            
-            <div>
-                <label for="nomormeja" class="block text-sm font-medium text-gray-700 mb-2">
-                    Nomor Meja
-                </label>
-                <input type="text" 
-                       id="nomormeja" 
-                       name="nomormeja" 
-                       value="{{ old('nomormeja') }}"
-                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                       placeholder="Contoh: A1, B2, C3"
-                       required>
-                @error('nomormeja')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-            
-            <div>
-                <label for="kapasitas" class="block text-sm font-medium text-gray-700 mb-2">
-                    Kapasitas
-                </label>
-                <input type="number" 
-                       id="kapasitas" 
-                       name="kapasitas" 
-                       value="{{ old('kapasitas') }}"
-                       min="1" 
-                       max="20"
-                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                       placeholder="Jumlah maksimal orang"
-                       required>
-                @error('kapasitas')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-            
-            <div class="flex space-x-4">
-                <button type="submit" 
-                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
-                    <i class="fas fa-save mr-2"></i>Simpan Meja
-                </button>
-                <a href="{{ route('admin.meja.index') }}" 
-                   class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors text-center">
-                    <i class="fas fa-arrow-left mr-2"></i>Kembali
-                </a>
-            </div>
-        </form>
-    </div>
+<div class="max-w-xl mx-auto">
+
+    <h2 class="text-xl font-bold mb-4">Tambah Meja Baru</h2>
+
+    <form action="{{ route('admin.meja.store') }}" method="POST" class="space-y-4">
+        @csrf
+
+        <div>
+            <label for="nomormeja" class="block mb-1 text-sm font-medium">Nomor Meja</label>
+            <input type="text" 
+                   id="nomormeja" 
+                   name="nomormeja" 
+                   value="{{ old('nomormeja') }}"
+                   class="w-full border px-3 py-2"
+                   required>
+        </div>
+
+        <div>
+            <label for="kapasitas" class="block mb-1 text-sm font-medium">Kapasitas</label>
+            <input type="number" 
+                   id="kapasitas" 
+                   name="kapasitas" 
+                   value="{{ old('kapasitas') }}"
+                   min="1" max="20"
+                   class="w-full border px-3 py-2"
+                   required>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2">
+                Simpan
+            </button>
+
+            <a href="{{ route('admin.meja.index') }}" class="bg-gray-200 px-4 py-2">
+                Kembali
+            </a>
+        </div>
+
+    </form>
 </div>
 @endsection

@@ -4,77 +4,61 @@
 @section('page-title', 'Edit Menu')
 
 @section('content')
+
 <div class="max-w-2xl mx-auto">
-    <div class="bg-white rounded-xl shadow-lg p-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Edit Menu: {{ $menu->namamenu }}</h2>
-        
-        <form action="{{ route('admin.menu.update', $menu->idmenu) }}" method="POST" class="space-y-6">
+
+    <h2 class="text-xl font-semibold mb-4">Edit Menu: {{ $menu->namamenu }}</h2>
+
+    <div class="bg-white p-4 border rounded">
+
+        <form action="{{ route('admin.menu.update', $menu->idmenu) }}" method="POST">
             @csrf
             @method('PUT')
-            
-            <div>
-                <label for="namamenu" class="block text-sm font-medium text-gray-700 mb-2">
-                    Nama Menu
-                </label>
-                <input type="text" 
-                       id="namamenu" 
-                       name="namamenu" 
-                       value="{{ old('namamenu', $menu->namamenu) }}"
-                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                       placeholder="Contoh: Nasi Goreng Spesial"
-                       required>
-                @error('namamenu')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
+
+            <div class="mb-4">
+                <label for="namamenu" class="block mb-1">Nama Menu</label>
+                <input type="text"
+                    id="namamenu"
+                    name="namamenu"
+                    value="{{ old('namamenu', $menu->namamenu) }}"
+                    class="w-full border px-3 py-2 rounded"
+                    required>
             </div>
-            
-            <div>
-                <label for="harga" class="block text-sm font-medium text-gray-700 mb-2">
-                    Harga
-                </label>
-                <div class="relative">
-                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">Rp</span>
-                    <input type="number" 
-                           id="harga" 
-                           name="harga" 
-                           value="{{ old('harga', $menu->harga) }}"
-                           min="0"
-                           step="100"
-                           class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                           placeholder="25000"
-                           required>
-                </div>
-                @error('harga')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
+
+            <div class="mb-4">
+                <label for="harga" class="block mb-1">Harga</label>
+                <input type="number"
+                    id="harga"
+                    name="harga"
+                    value="{{ old('harga', $menu->harga) }}"
+                    class="w-full border px-3 py-2 rounded"
+                    min="0"
+                    required>
             </div>
-            
-            <div>
-                <label for="aktif" class="block text-sm font-medium text-gray-700 mb-2">
-                    Status Menu
-                </label>
-                <select id="aktif" 
-                        name="aktif" 
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+
+            <div class="mb-4">
+                <label for="aktif" class="block mb-1">Status Menu</label>
+                <select name="aktif" id="aktif" class="w-full border px-3 py-2 rounded">
                     <option value="1" {{ old('aktif', $menu->aktif) ? 'selected' : '' }}>Aktif</option>
                     <option value="0" {{ !old('aktif', $menu->aktif) ? 'selected' : '' }}>Tidak Aktif</option>
                 </select>
-                @error('aktif')
-                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
             </div>
-            
-            <div class="flex space-x-4">
-                <button type="submit" 
-                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
-                    <i class="fas fa-save mr-2"></i>Update Menu
+
+            <div class="flex gap-3">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
+                    Update Menu
                 </button>
-                <a href="{{ route('admin.menu.index') }}" 
-                   class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors text-center">
-                    <i class="fas fa-arrow-left mr-2"></i>Kembali
+
+                <a href="{{ route('admin.menu.index') }}"
+                   class="bg-gray-300 text-gray-800 px-4 py-2 rounded w-full text-center">
+                    Kembali
                 </a>
             </div>
+
         </form>
+
     </div>
+
 </div>
+
 @endsection
