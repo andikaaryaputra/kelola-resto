@@ -13,7 +13,7 @@ class Pesanan extends Model
     // Relasi
     public function meja()
     {
-        return $this->belongsTo(Meja::class, 'idmeja');
+        return $this->belongsTo(Meja::class, 'idmeja','idmeja');
     }
 
     public function waiter()
@@ -23,7 +23,7 @@ class Pesanan extends Model
 
     public function pelanggan()
     {
-        return $this->belongsTo(Pelanggan::class, 'idpelanggan');
+        return $this->belongsTo(Pelanggan::class, 'idpelanggan', 'idpelanggan');
     }
 
     public function detail()
